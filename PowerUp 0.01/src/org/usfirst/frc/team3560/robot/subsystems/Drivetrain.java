@@ -5,9 +5,9 @@ import org.usfirst.frc.team3560.robot.commands.Driving;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -17,10 +17,9 @@ public class Drivetrain extends Subsystem
 {
 
 	private WPI_TalonSRX frontLeft, frontRight, backLeft, backRight;
-	public Accelerometer accel;
 	// public Encoder encodL, encodR;
-	// private DoubleSolenoid solenoid2;
-	// private double countsPerRevolution, wheelDiameter;
+	private DoubleSolenoid solenoid1;
+	private double countsPerRevolution, wheelDiameter;
 
 	public Drivetrain()
 	{
@@ -34,21 +33,20 @@ public class Drivetrain extends Subsystem
 		LiveWindow.addActuator("Drivetrain", "Back Left CIM", (WPI_TalonSRX) backLeft);
 		LiveWindow.addActuator("Drivetrain", "Back Right CIM", (WPI_TalonSRX) backRight);
 
-		accel = new BuiltInAccelerometer(Accelerometer.Range.k4G);
 		/*
-				countsPerRevolution = 20;
-				wheelDiameter = 6;
-				encodL = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-				encodR = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
+		countsPerRevolution = 20;
+		wheelDiameter = 6;
+		encodL = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
+		encodR = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
 		
-				encodL.setDistancePerPulse(countsPerRevolution);
-				encodR.setDistancePerPulse(countsPerRevolution);
+		encodL.setDistancePerPulse(countsPerRevolution);
+		encodR.setDistancePerPulse(countsPerRevolution);
 		
-				encodL.setDistancePerPulse(findDistancePerPulse());
-				encodL.setDistancePerPulse(findDistancePerPulse());
+		encodL.setDistancePerPulse(findDistancePerPulse());
+		encodL.setDistancePerPulse(findDistancePerPulse());
 		*/
-		// solenoid2 = new DoubleSolenoid(ElectricalConstants.DSOLENOID_LIFT_0,
-		// ElectricalConstants.DSOLENOID_LIFT_0);
+
+		solenoid1 = new DoubleSolenoid(ElectricalConstants.DSOLENOID_LIFT_0, ElectricalConstants.DSOLENOID_LIFT_0);
 
 	}
 
@@ -80,7 +78,8 @@ public class Drivetrain extends Subsystem
 		drive(0);
 	}
 
-	/*public int getCountL()
+	/*
+	public int getCountL()
 	{
 		return encodL.get();
 	}
@@ -105,16 +104,10 @@ public class Drivetrain extends Subsystem
 		return 1 / (countsPerRevolution * wheelDiameter * Math.PI);
 	}
 	*/
-	/*
-		public void lowGearRatio()
-		{
-			solenoid2.set(DoubleSolenoid.Value.kReverse);
-		}
-	
-		public void highGearRatio()
-		{
-			solenoid2.set(DoubleSolenoid.Value.kForward);
-		}
-		*/
+
+	public void changeGearRatio(Value direction)
+	{
+		solenoid1.set(direction);
+	}
 
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team3560.robot.commands;
 
 import org.usfirst.frc.team3560.robot.Robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -31,11 +32,11 @@ public class MoveClaw extends Command
 		Robot.rClaw.rotateWheels(Robot.rToolStick.getToolLeftY() * spinSpeed);
 
 		if (Robot.rToolStick.getToolAButton()) {
-			Robot.rClaw.openSolenoid();
+			Robot.rClaw.moveSolenoid(Value.kForward);
 		} else if (Robot.rToolStick.getToolBButton()) {
-			Robot.rClaw.closeSolenoid();
+			Robot.rClaw.moveSolenoid(Value.kReverse);
 		} else if (Robot.rToolStick.getToolYButton()) {
-			Robot.rClaw.offSolenoid();
+			Robot.rClaw.moveSolenoid(Value.kOff);
 		} else {
 		}
 
@@ -51,7 +52,7 @@ public class MoveClaw extends Command
 	protected void end()
 	{
 		Robot.rClaw.rotateWheels(0);
-		Robot.rClaw.offSolenoid();
+		Robot.rClaw.moveSolenoid(Value.kOff);
 	}
 
 	// Called when another command which requires one or more of the same
@@ -59,6 +60,6 @@ public class MoveClaw extends Command
 	protected void interrupted()
 	{
 		Robot.rClaw.rotateWheels(0);
-		Robot.rClaw.offSolenoid();
+		Robot.rClaw.moveSolenoid(Value.kOff);
 	}
 }

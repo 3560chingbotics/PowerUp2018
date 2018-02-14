@@ -2,6 +2,7 @@ package org.usfirst.frc.team3560.robot.commands;
 
 import org.usfirst.frc.team3560.robot.Robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,13 +27,13 @@ public class Driving extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		/*
-				if (Robot.rDriveStick.getJoyTrigger()) {
-					Robot.rDrivetrain.lowGearRatio();
-				} else {
-					Robot.rDrivetrain.highGearRatio();
-				}
-		*/
+
+		if (Robot.rDriveStick.getJoyTrigger()) {
+			Robot.rDrivetrain.changeGearRatio(Value.kForward);
+		} else {
+			Robot.rDrivetrain.changeGearRatio(Value.kReverse);
+		}
+
 		driveSpeed = (Robot.rDriveStick.getSlider());
 		if (Robot.rDriveStick.getSlider() > 0.8) {
 			driveSpeed = 0.8;
@@ -59,18 +60,6 @@ public class Driving extends Command
 		// Robot.rDriveStick.getDriveRightX()));
 		// Robot.rDrivetrain.driveright(driveSpeed * (Robot.rDriveStick.getDriveLeftY()
 		// - Robot.rDriveStick.getDriveRightX()));
-
-		/*accelX = Robot.rDrivetrain.accel.getX(); // These functions return the acceleration in g forces
-		accelY = Robot.rDrivetrain.accel.getY();
-		accelZ = Robot.rDrivetrain.accel.getZ();
-		
-		accelX = accelX * 9.81; // Convert G forces to metres per second per second
-		accelY = accelY * 9.81;
-		accelZ = accelZ * 9.81;
-		
-		SmartDashboard.putNumber("Acceleration in X", accelX);
-		SmartDashboard.putNumber("Acceleration in Y", accelY);
-		SmartDashboard.putNumber("Acceleration in Z", accelZ); */
 
 	}
 

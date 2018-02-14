@@ -2,6 +2,7 @@ package org.usfirst.frc.team3560.robot.commands;
 
 import org.usfirst.frc.team3560.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -23,13 +24,9 @@ public class AutonReachLine extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		/*
-		if (Robot.rDrivetrain.encodL.getDistance() < 36) {
-			Robot.rDrivetrain.drive(.1);
-		} else {
-			Robot.rDrivetrain.fullstop();
-		}
-		*/
+		Robot.rDrivetrain.drive(.1);
+		Timer.delay(5);
+		Robot.rDrivetrain.fullstop();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
