@@ -4,6 +4,7 @@ import org.usfirst.frc.team3560.robot.ElectricalConstants;
 import org.usfirst.frc.team3560.robot.commands.Driving;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -20,6 +21,7 @@ public class Drivetrain extends Subsystem
 	// public Encoder encodL, encodR;
 	private DoubleSolenoid solenoid1;
 	private double countsPerRevolution, wheelDiameter;
+	private AHRS ahrs;
 
 	public Drivetrain()
 	{
