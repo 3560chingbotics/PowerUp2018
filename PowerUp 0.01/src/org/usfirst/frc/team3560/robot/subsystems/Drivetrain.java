@@ -8,6 +8,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -18,10 +20,8 @@ public class Drivetrain extends Subsystem
 {
 
 	private WPI_TalonSRX frontLeft, frontRight, backLeft, backRight;
-	// public Encoder encodL, encodR;
 	private DoubleSolenoid solenoid1;
-	private double countsPerRevolution, wheelDiameter;
-	private AHRS ahrs;
+	public AHRS ahrs;
 
 	public Drivetrain()
 	{
@@ -35,20 +35,16 @@ public class Drivetrain extends Subsystem
 		LiveWindow.addActuator("Drivetrain", "Back Left CIM", (WPI_TalonSRX) backLeft);
 		LiveWindow.addActuator("Drivetrain", "Back Right CIM", (WPI_TalonSRX) backRight);
 
-		/*
-		countsPerRevolution = 20;
-		wheelDiameter = 6;
-		encodL = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
-		encodR = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
-		
-		encodL.setDistancePerPulse(countsPerRevolution);
-		encodR.setDistancePerPulse(countsPerRevolution);
-		
-		encodL.setDistancePerPulse(findDistancePerPulse());
-		encodL.setDistancePerPulse(findDistancePerPulse());
-		*/
+		solenoid1 = new DoubleSolenoid(ElectricalConstants.DSOLENOID_GEARBOX_0, ElectricalConstants.DSOLENOID_GEARBOX_1);
 
-		solenoid1 = new DoubleSolenoid(ElectricalConstants.DSOLENOID_LIFT_0, ElectricalConstants.DSOLENOID_LIFT_0);
+		try {
+			/* Communicate w/navX-MXP via the MXP SPI Bus.                                     */
+			/* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
+			/* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
+			ahrs = new AHRS(SerialPort.Port.kMXP);
+		} catch (RuntimeException ex) {
+			DriverStation.reportError("Error instantiating navX-MXP:" + ex.getMessage(), true);
+		}
 
 	}
 
@@ -80,36 +76,44 @@ public class Drivetrain extends Subsystem
 		drive(0);
 	}
 
-	/*
-	public int getCountL()
-	{
-		return encodL.get();
-	}
-	
-	public int getCountR()
-	{
-		return encodR.get();
-	}
-	
-	public double getRateL()
-	{
-		return encodL.getRate();
-	}
-	
-	public double getRateR()
-	{
-		return encodR.getRate();
-	}
-	
-	private double findDistancePerPulse()
-	{
-		return 1 / (countsPerRevolution * wheelDiameter * Math.PI);
-	}
-	*/
-
 	public void changeGearRatio(Value direction)
 	{
 		solenoid1.set(direction);
 	}
 
+	public boolean checkRotationAngle(double kTargetAngleDegrees)
+	{
+		boolean gyroAngleReached = false;
+		if (ahrs.getAngle() == kTargetAngleDegrees) {
+			gyroAngleReached = true;
+		} else {
+			gyroAngleReached = false;
+		}
+		ahrs.reset();
+		return gyroAngleReached;
+	}
+
+	public boolean checkDisplacementX(double kTargetDisplacement)
+	{
+		boolean gyroDisplacementReached = false;
+		if (ahrs.getDisplacementX() == kTargetDisplacement) {
+			gyroDisplacementReached = true;
+		} else {
+			gyroDisplacementReached = false;
+		}
+		ahrs.resetDisplacement();
+		return gyroDisplacementReached;
+	}
+
+	public boolean checkDisplacementY(double kTargetDisplacement)
+	{
+		boolean gyroDisplacementReached = false;
+		if (ahrs.getDisplacementY() == kTargetDisplacement) {
+			gyroDisplacementReached = true;
+		} else {
+			gyroDisplacementReached = false;
+		}
+		ahrs.resetDisplacement();
+		return gyroDisplacementReached;
+	}
 }

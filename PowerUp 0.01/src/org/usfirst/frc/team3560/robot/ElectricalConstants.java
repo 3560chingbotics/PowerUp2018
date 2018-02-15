@@ -14,6 +14,6 @@ public class ElectricalConstants
 	public static final int DSOLENOID_CLAW_0 = 0;
 	public static final int DSOLENOID_CLAW_1 = 1;
 
-	public static final int DSOLENOID_LIFT_0 = 3;
-	public static final int DSOLENOID_LIFT_1 = 4;
+	public static final int DSOLENOID_GEARBOX_0 = 3;
+	public static final int DSOLENOID_GEARBOX_1 = 4;
 }

@@ -76,6 +76,12 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic()
 	{
 		Scheduler.getInstance().run();
+
+		SmartDashboard.putBoolean("IMU_Connected", Robot.rDrivetrain.ahrs.isConnected());
+		SmartDashboard.putBoolean("IMU_IsCalibrating", Robot.rDrivetrain.ahrs.isCalibrating());
+		SmartDashboard.putNumber("IMU_Yaw", Robot.rDrivetrain.ahrs.getYaw());
+		SmartDashboard.putNumber("IMU_Pitch", Robot.rDrivetrain.ahrs.getPitch());
+		SmartDashboard.putNumber("IMU_Roll", Robot.rDrivetrain.ahrs.getRoll());
 	}
 
 	@Override
