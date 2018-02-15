@@ -11,6 +11,9 @@ public class ElectricalConstants
 	public static final int MOTORV_LEFT_CLAW = 0;
 	public static final int MOTORV_RIGHT_CLAW = 1;
 
+	public static final int MOTORV_LEFT_LIFT = 2;
+	public static final int MOTORV_RIGHT_LIFT = 3;
+
 	public static final int DSOLENOID_CLAW_0 = 0;
 	public static final int DSOLENOID_CLAW_1 = 1;
 

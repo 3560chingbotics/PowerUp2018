@@ -3,6 +3,7 @@ package org.usfirst.frc.team3560.robot;
 import org.usfirst.frc.team3560.robot.commands.AutonReachLine;
 import org.usfirst.frc.team3560.robot.subsystems.Claw;
 import org.usfirst.frc.team3560.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team3560.robot.subsystems.Lift;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -15,6 +16,7 @@ public class Robot extends TimedRobot
 {
 	public static final Drivetrain rDrivetrain = new Drivetrain();
 	public static final Claw rClaw = new Claw();
+	public static final Lift rLift = new Lift();
 	public static DriveStick rDriveStick;
 	public static ToolStick rToolStick;
 	public String FMSReading;
