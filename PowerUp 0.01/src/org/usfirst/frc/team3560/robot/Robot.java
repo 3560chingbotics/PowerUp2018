@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3560.robot;
 
 import org.usfirst.frc.team3560.robot.commands.AutonReachLine;
+import org.usfirst.frc.team3560.robot.commands.AutonTesting;
 import org.usfirst.frc.team3560.robot.subsystems.Claw;
 import org.usfirst.frc.team3560.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3560.robot.subsystems.Lift;
@@ -29,10 +30,10 @@ public class Robot extends TimedRobot
 		rDriveStick = new DriveStick();
 		rToolStick = new ToolStick();
 		FMSReading = DriverStation.getInstance().getGameSpecificMessage();
-		// System.out.println("Game Data from FMS" + FMSReading);
+		System.out.println("Game Data from FMS" + FMSReading);
 		rAutoChooser = new SendableChooser<Command>();
 		rAutoChooser.addDefault("AutonReachLine", new AutonReachLine());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		rAutoChooser.addObject("My Auto", new AutonTesting());
 		SmartDashboard.putData("Auto mode", rAutoChooser);
 
 	}

@@ -2,15 +2,16 @@ package org.usfirst.frc.team3560.robot.commands;
 
 import org.usfirst.frc.team3560.robot.Robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutonTesting extends Command
+public class LeftSideScale extends Command
 {
 
-	public AutonTesting()
+	public LeftSideScale()
 	{
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -27,12 +28,20 @@ public class AutonTesting extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		/*while(!Robot.rDrivetrain.checkDisplacementX(3.8))
-		{
-			Robot.rDrivetrain.drive(0.2);
-		}
-		*/
+		Robot.rClaw.moveSolenoid(Value.kReverse);
 		if (Robot.rDrivetrain.checkDisplacementX(3.8)) {
+			Robot.rDrivetrain.drive(0);
+		} else {
+			Robot.rDrivetrain.drive(.2);
+		}
+
+		if (Robot.rDrivetrain.checkRotationAngle(90)) {
+			Robot.rDrivetrain.driveleft(0);
+		} else {
+			Robot.rDrivetrain.driveleft(.2);
+		}
+
+		if (Robot.rDrivetrain.checkDisplacementY(1.1)) {
 			Robot.rDrivetrain.drive(0);
 		} else {
 			Robot.rDrivetrain.drive(.2);

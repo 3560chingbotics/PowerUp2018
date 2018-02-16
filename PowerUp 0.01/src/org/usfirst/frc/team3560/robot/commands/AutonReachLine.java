@@ -2,7 +2,7 @@ package org.usfirst.frc.team3560.robot.commands;
 
 import org.usfirst.frc.team3560.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -14,6 +14,8 @@ public class AutonReachLine extends Command
 	public AutonReachLine()
 	{
 		requires(Robot.rDrivetrain);
+		requires(Robot.rClaw);
+		requires(Robot.rLift);
 	}
 
 	// Called just before this Command runs the first time
@@ -24,9 +26,17 @@ public class AutonReachLine extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		Robot.rDrivetrain.drive(.1);
-		Timer.delay(5);
-		Robot.rDrivetrain.fullstop();
+		Robot.rClaw.moveSolenoid(Value.kReverse);
+		/*while(!Robot.rDrivetrain.checkDisplacementX(3.8))
+		{
+			Robot.rDrivetrain.drive(0.2);
+		}
+		*/
+		if (Robot.rDrivetrain.checkDisplacementX(3.8)) {
+			Robot.rDrivetrain.drive(0);
+		} else {
+			Robot.rDrivetrain.drive(.2);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
