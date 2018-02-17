@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  *
@@ -23,7 +24,13 @@ public class Claw extends Subsystem
 		motor1 = new VictorSP(ElectricalConstants.MOTORV_LEFT_CLAW);
 		motor2 = new VictorSP(ElectricalConstants.MOTORV_RIGHT_CLAW);
 
+		LiveWindow.addActuator("Claw", "Left 775", (VictorSP) motor1);
+		LiveWindow.addActuator("Claw", "Right 775", (VictorSP) motor2);
+
 		solenoid1 = new DoubleSolenoid(ElectricalConstants.DSOLENOID_CLAW_0, ElectricalConstants.DSOLENOID_CLAW_1);
+
+		LiveWindow.addActuator("Claw", "Claw Solenoid", (DoubleSolenoid) solenoid1);
+
 		compressor = new Compressor();
 		compressor.setClosedLoopControl(true);
 	}
