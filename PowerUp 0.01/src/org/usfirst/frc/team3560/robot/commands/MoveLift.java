@@ -26,13 +26,25 @@ public class MoveLift extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		if (Robot.rToolStick.getToolLeftTrigger()) {
+		if (Robot.rToolStick.getToolYButton()) {
 			Robot.rLift.spinLiftMotor(0.65);
-		} else if (Robot.rToolStick.getToolRightTrigger()) {
+		} else if (Robot.rToolStick.getToolAButton()) {
 			Robot.rLift.spinLiftMotor(-0.65);
-		} else if (Robot.rToolStick.getToolLeftBumper()) {
+		} else if (Robot.rToolStick.getToolXButton()) {
 			Robot.rLift.spinLiftMotor(0.3);
-		} else if (Robot.rToolStick.getToolRightBumper()) {
+		} else if (Robot.rToolStick.getToolBButton()) {
+			Robot.rLift.spinLiftMotor(-0.3);
+		} else {
+			Robot.rLift.spinLiftMotor(0);
+		}
+
+		if (Robot.rToolStick.getToolYButton()) {
+			Robot.rLift.spinLiftMotor(0.65);
+		} else if (Robot.rToolStick.getToolAButton()) {
+			Robot.rLift.spinLiftMotor(-0.65);
+		} else if (Robot.rToolStick.getToolXButton()) {
+			Robot.rLift.spinLiftMotor(0.3);
+		} else if (Robot.rToolStick.getToolBButton()) {
 			Robot.rLift.spinLiftMotor(-0.3);
 		} else {
 			Robot.rLift.spinLiftMotor(0);

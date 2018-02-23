@@ -58,6 +58,14 @@ public class Lift extends Subsystem
 		motor1.set(speed);
 	}
 
+	public int switchCount()
+	{
+		return switchCount;
+
+	}
+
+	// TO DO
+	// Make Button Presses for different positions.
 	public void driveLift(boolean isUp, double speed)
 	{
 		if (isUp && 4 != switchCount) {

@@ -29,13 +29,13 @@ public class MoveClaw extends Command
 		System.out.println("C Current" + Robot.rClaw.compressor.getCompressorCurrent());
 		System.out.println("Pressure Switch" + Robot.rClaw.compressor.getPressureSwitchValue());
 
-		Robot.rClaw.rotateWheels(Robot.rToolStick.getToolRightY() * spinSpeed);
+		Robot.rClaw.rotateWheels(Robot.rToolStick.getToolLeftY() * spinSpeed);
 
-		if (Robot.rToolStick.getToolAButton()) {
+		if (Robot.rToolStick.getToolLeftTrigger()) {
 			Robot.rClaw.moveSolenoid(Value.kForward);
-		} else if (Robot.rToolStick.getToolBButton()) {
+		} else if (Robot.rToolStick.getToolRightTrigger()) {
 			Robot.rClaw.moveSolenoid(Value.kReverse);
-		} else if (Robot.rToolStick.getToolYButton()) {
+		} else if (Robot.rToolStick.getToolLeftBumper()) {
 			Robot.rClaw.moveSolenoid(Value.kOff);
 		} else {
 		}
