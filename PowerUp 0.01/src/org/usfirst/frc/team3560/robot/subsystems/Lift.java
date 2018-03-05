@@ -61,19 +61,40 @@ public class Lift extends Subsystem
 	public int switchCount()
 	{
 		return switchCount;
-
 	}
 
-	// TO DO
-	// Make Button Presses for different positions.
-	public void driveLift(boolean isUp, double speed)
+	public void updateSwitchCount()
 	{
-		if (isUp && 4 != switchCount) {
+		if (switchs[bottomClawSwitch].get()) {
+			// If the bottom switch is on then switch count is at the bottom claw
+			switchCount = bottomClawSwitch;
+		} else if (switchs[midClawSwitch].get()) {
+			// If the mid switch is on then switch count is at the mid claw
+			switchCount = midClawSwitch;
+		} else if (switchs[topClawSwitch].get() && !switchs[midLiftSwitch].get() && !switchs[topLiftSwitch].get()) {
+			// If the top switch is on and the middle lift switch if off and the top lift
+			// switch is off then switch count is at the top claw
+			switchCount = topClawSwitch;
+		} else if (switchs[midLiftSwitch].get()) {
+			// If the middle lift switch is on then switch count is at the middle lift
+			switchCount = midLiftSwitch;
+		} else if (switchs[topLiftSwitch].get()) {
+			// If the top lift is on then switch count is at the top lift
+			switchCount = topLiftSwitch;
+		} else {
+			switchCount = switchCount;
+		}
+	}
+
+	public void driveLift(int desiredPosition, double speed)
+	{
+		updateSwitchCount();
+		if (desiredPosition < switchCount && 4 != switchCount) {
 			switchCount++;
 			while (!switchs[switchCount].get()) {
 				motor1.set(speed);
 			}
-		} else if (!isUp && 0 != switchCount) {
+		} else if (desiredPosition > switchCount && 0 != switchCount) {
 			switchCount--;
 			while (!switchs[switchCount].get()) {
 				motor1.set(-speed);

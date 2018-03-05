@@ -10,6 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveLift extends Command
 {
 
+	static final private int bottomClawSwitch = 0;
+	static final private int midClawSwitch = 1;
+	static final private int topClawSwitch = 2;
+	static final private int midLiftSwitch = 3;
+	static final private int topLiftSwitch = 4;
+
 	public MoveLift()
 	{
 		// Use requires() here to declare subsystem dependencies
@@ -27,28 +33,30 @@ public class MoveLift extends Command
 	protected void execute()
 	{
 		if (Robot.rToolStick.getToolYButton()) {
-			Robot.rLift.spinLiftMotor(0.65);
+			Robot.rLift.spinLiftMotor(0.368);
 		} else if (Robot.rToolStick.getToolAButton()) {
-			Robot.rLift.spinLiftMotor(-0.65);
+			Robot.rLift.spinLiftMotor(0.368);
 		} else if (Robot.rToolStick.getToolXButton()) {
-			Robot.rLift.spinLiftMotor(0.3);
+			Robot.rLift.spinLiftMotor(0.368);
 		} else if (Robot.rToolStick.getToolBButton()) {
-			Robot.rLift.spinLiftMotor(-0.3);
+			Robot.rLift.spinLiftMotor(0.368);
 		} else {
 			Robot.rLift.spinLiftMotor(0);
 		}
 
 		if (Robot.rToolStick.getToolYButton()) {
-			Robot.rLift.spinLiftMotor(0.65);
+			Robot.rLift.driveLift(bottomClawSwitch, 0.368);
 		} else if (Robot.rToolStick.getToolAButton()) {
-			Robot.rLift.spinLiftMotor(-0.65);
+			Robot.rLift.driveLift(midClawSwitch, 0.368);
 		} else if (Robot.rToolStick.getToolXButton()) {
-			Robot.rLift.spinLiftMotor(0.3);
+			Robot.rLift.driveLift(topClawSwitch, 0.368);
 		} else if (Robot.rToolStick.getToolBButton()) {
-			Robot.rLift.spinLiftMotor(-0.3);
+			Robot.rLift.driveLift(midLiftSwitch, 0.368);
+		} else if (Robot.rToolStick.getToolRightBumper()) {
+			Robot.rLift.driveLift(topLiftSwitch, 0.368);
 		} else {
-			Robot.rLift.spinLiftMotor(0);
 		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
