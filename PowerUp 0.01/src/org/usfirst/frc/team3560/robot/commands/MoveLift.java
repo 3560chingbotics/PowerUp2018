@@ -45,16 +45,15 @@ public class MoveLift extends Command
 		}
 
 		if (Robot.rToolStick.getToolYButton()) {
-			Robot.rLift.driveLift(bottomClawSwitch, 0.368);
+			Robot.rLift.driveLift(bottomClawSwitch);
 		} else if (Robot.rToolStick.getToolAButton()) {
-			Robot.rLift.driveLift(midClawSwitch, 0.368);
+			Robot.rLift.driveLift(midClawSwitch);
 		} else if (Robot.rToolStick.getToolXButton()) {
-			Robot.rLift.driveLift(topClawSwitch, 0.368);
+			Robot.rLift.driveLift(topClawSwitch);
 		} else if (Robot.rToolStick.getToolBButton()) {
-			Robot.rLift.driveLift(midLiftSwitch, 0.368);
+			Robot.rLift.driveLift(midLiftSwitch);
 		} else if (Robot.rToolStick.getToolRightBumper()) {
-			Robot.rLift.driveLift(topLiftSwitch, 0.368);
-		} else {
+			Robot.rLift.driveLift(topLiftSwitch);
 		}
 
 	}

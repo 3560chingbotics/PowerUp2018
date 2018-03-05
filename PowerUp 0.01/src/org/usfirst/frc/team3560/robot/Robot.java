@@ -33,7 +33,7 @@ public class Robot extends TimedRobot
 		System.out.println("Game Data from FMS" + FMSReading);
 		rAutoChooser = new SendableChooser<Command>();
 		rAutoChooser.addDefault("AutonReachLine", new AutonReachLine());
-		rAutoChooser.addObject("My Auto", new AutonTesting());
+		rAutoChooser.addObject("AutonTesting", new AutonTesting());
 		SmartDashboard.putData("Auto mode", rAutoChooser);
 
 	}

@@ -37,8 +37,8 @@ public class Driving extends Command
 		driveSpeed = (Robot.rDriveStick.getSlider());
 		if (Robot.rDriveStick.getSlider() > 0.8) {
 			driveSpeed = 0.8;
-		} else if (Robot.rDriveStick.getSlider() < .1) {
-			driveSpeed = .1;
+		} else if (Robot.rDriveStick.getSlider() < 0.3) {
+			driveSpeed = 0.3;
 		} else {
 			driveSpeed = driveSpeed;
 		}

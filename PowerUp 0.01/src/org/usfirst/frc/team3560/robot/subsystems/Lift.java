@@ -86,19 +86,20 @@ public class Lift extends Subsystem
 		}
 	}
 
-	public void driveLift(int desiredPosition, double speed)
+	public void driveLift(int desiredPosition)
 	{
 		updateSwitchCount();
 		if (desiredPosition < switchCount && 4 != switchCount) {
 			switchCount++;
 			while (!switchs[switchCount].get()) {
-				motor1.set(speed);
+				motor1.set(0.368);
 			}
 		} else if (desiredPosition > switchCount && 0 != switchCount) {
 			switchCount--;
 			while (!switchs[switchCount].get()) {
-				motor1.set(-speed);
+				motor1.set(-0.368);
 			}
 		}
+
 	}
 }

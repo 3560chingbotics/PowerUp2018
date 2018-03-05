@@ -5,7 +5,6 @@ import org.usfirst.frc.team3560.robot.commands.MoveClaw;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -46,9 +45,26 @@ public class Claw extends Subsystem
 		motor2.set(speed);
 	}
 
+	/*
 	public void moveSolenoid(Value direction)
 	{
 		solenoid1.set(direction);
+	}
+	*/
+
+	public void openSolenoid()
+	{
+		solenoid1.set(DoubleSolenoid.Value.kForward);
+	}
+
+	public void closeSolenoid()
+	{
+		solenoid1.set(DoubleSolenoid.Value.kReverse);
+	}
+
+	public void offSolenoid()
+	{
+		solenoid1.set(DoubleSolenoid.Value.kOff);
 	}
 
 }
