@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Driving extends Command
 {
 	private double driveSpeed;
-	public double accelX, accelY, accelZ;
 
 	public Driving()
 	{
@@ -52,8 +51,20 @@ public class Driving extends Command
 		// Robot.rDriveStick.getDriveRightY());
 
 		// Arcade JoyStick Drive Single Stick
-		Robot.rDrivetrain.driveleft(driveSpeed * (Robot.rDriveStick.getJoyY() + Robot.rDriveStick.getJoyZ()));
-		Robot.rDrivetrain.driveright(driveSpeed * (Robot.rDriveStick.getJoyY() - Robot.rDriveStick.getJoyZ()));
+		if (!Robot.rDriveStick.getJoyLeftCloseRightButton()) {
+			Robot.rDrivetrain.driveleft(driveSpeed * (Robot.rDriveStick.getJoyY() + Robot.rDriveStick.getJoyZ()));
+			Robot.rDrivetrain.driveright(driveSpeed * (Robot.rDriveStick.getJoyY() - Robot.rDriveStick.getJoyZ()));
+		}
+
+		if (Robot.rDriveStick.getJoyLeftCloseRightButton()) {
+			if (Robot.rDriveStick.getJoyX() > 0) {
+				Robot.rDrivetrain.driveleft(driveSpeed * Robot.rDriveStick.getJoyX());
+			}
+			if (Robot.rDriveStick.getJoyX() < 0) {
+				Robot.rDrivetrain.driveright(driveSpeed * Robot.rDriveStick.getJoyX());
+			}
+
+		}
 
 		// Arcade Stick Dual Stick
 		// Robot.rDrivetrain.driveleft(driveSpeed * (Robot.rDriveStick.getDriveLeftY() +

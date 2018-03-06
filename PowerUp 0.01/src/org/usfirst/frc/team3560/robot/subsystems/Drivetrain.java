@@ -57,6 +57,7 @@ public class Drivetrain extends Subsystem
 
 	public void initDefaultCommand()
 	{
+
 		setDefaultCommand(new Driving());
 	}
 
@@ -99,7 +100,7 @@ public class Drivetrain extends Subsystem
 		boolean gyroAngleReached = false;
 		// If the angle of the robot has reached the desired angle,
 		// the boolean will turn true, if not it will be false
-		if (ahrs.getAngle() == kTargetAngleDegrees) {
+		if (ahrs.getAngle() >= kTargetAngleDegrees) {
 			gyroAngleReached = true;
 		} else {
 			gyroAngleReached = false;
@@ -114,7 +115,7 @@ public class Drivetrain extends Subsystem
 		boolean gyroDisplacementReached = false;
 		// If the displacement of the robot has reached the desired distance,
 		// the boolean will turn true, if not it will be false
-		if (ahrs.getDisplacementX() == kTargetDisplacement) {
+		if (ahrs.getDisplacementX() >= kTargetDisplacement) {
 			gyroDisplacementReached = true;
 		} else {
 			gyroDisplacementReached = false;
@@ -129,7 +130,7 @@ public class Drivetrain extends Subsystem
 		boolean gyroDisplacementReached = false;
 		// If the displacement of the robot has reached the desired distance,
 		// the boolean will turn true, if not it will be false
-		if (ahrs.getDisplacementY() == kTargetDisplacement) {
+		if (ahrs.getDisplacementY() >= kTargetDisplacement) {
 			gyroDisplacementReached = true;
 		} else {
 			gyroDisplacementReached = false;

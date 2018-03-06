@@ -30,7 +30,7 @@ public class AutonReachLine extends Command
 	protected void execute()
 	{
 		// Robot.rClaw.moveSolenoid(Value.kReverse);
-		while (!Robot.rDrivetrain.checkDisplacementX(3.8)) {
+		while (!Robot.rDrivetrain.checkDisplacementX(1)) {
 			Robot.rDrivetrain.drive(0.2);
 		}
 
