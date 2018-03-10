@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -21,6 +22,7 @@ public class Drivetrain extends Subsystem
 
 	private WPI_TalonSRX frontLeft, frontRight, backLeft, backRight; // Declare the 4 motors
 	private DoubleSolenoid solenoid1; // declare the one solenoid for the gearboxes.
+	private Timer time;
 	public AHRS ahrs; // declare the NavX
 
 	public Drivetrain()
@@ -52,6 +54,8 @@ public class Drivetrain extends Subsystem
 		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX-MXP:" + ex.getMessage(), true);
 		}
+
+		time = new Timer();
 
 	}
 
@@ -137,5 +141,35 @@ public class Drivetrain extends Subsystem
 		}
 		ahrs.resetDisplacement(); // Resets the distance travelled to 0
 		return gyroDisplacementReached;
+	}
+
+	public boolean checkDisplacementZ(double kTargetDisplacement)
+	{
+		boolean gyroDisplacementReached = false;
+		// If the displacement of the robot has reached the desired distance,
+		// the boolean will turn true, if not it will be false
+		if (ahrs.getDisplacementZ() >= kTargetDisplacement) {
+			gyroDisplacementReached = true;
+		} else {
+			gyroDisplacementReached = false;
+		}
+		ahrs.resetDisplacement(); // Resets the distance travelled to 0
+		return gyroDisplacementReached;
+	}
+
+	public void startTimer()
+	{
+		time.reset();
+		time.start();
+	}
+
+	public double getTime()
+	{
+		return time.get();
+	}
+
+	public boolean timeDone(double finishedTime)
+	{
+		return time.get() > finishedTime;
 	}
 }

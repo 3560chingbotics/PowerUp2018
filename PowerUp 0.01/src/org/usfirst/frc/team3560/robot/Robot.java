@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3560.robot;
 
-import org.usfirst.frc.team3560.robot.commands.AutonReachLine;
-import org.usfirst.frc.team3560.robot.commands.AutonTesting;
+import org.usfirst.frc.team3560.robot.commands.auton.AutonReachLine;
+import org.usfirst.frc.team3560.robot.commands.auton.AutonTesting;
 import org.usfirst.frc.team3560.robot.subsystems.Claw;
 import org.usfirst.frc.team3560.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3560.robot.subsystems.Lift;
@@ -65,6 +65,7 @@ public class Robot extends TimedRobot
 	public void autonomousPeriodic()
 	{
 		Scheduler.getInstance().run();
+		Robot.rLift.updateSwitchCount();
 	}
 
 	@Override
@@ -79,6 +80,8 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic()
 	{
 		Scheduler.getInstance().run();
+
+		Robot.rLift.updateSwitchCount();
 
 		SmartDashboard.putBoolean("IMU_Connected", Robot.rDrivetrain.ahrs.isConnected());
 		SmartDashboard.putBoolean("IMU_IsCalibrating", Robot.rDrivetrain.ahrs.isCalibrating());

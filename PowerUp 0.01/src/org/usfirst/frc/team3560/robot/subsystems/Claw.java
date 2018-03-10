@@ -43,7 +43,7 @@ public class Claw extends Subsystem
 	public void rotateWheels(double speed)
 	{
 		motor1.set(speed);
-		motor2.set(speed);
+		motor2.set(-speed);
 	}
 
 	public void moveSolenoid(Value direction)
