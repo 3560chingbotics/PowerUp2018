@@ -1,57 +1,33 @@
 package org.usfirst.frc.team3560.robot.commands.auton;
 
-import org.usfirst.frc.team3560.robot.Robot;
+import org.usfirst.frc.team3560.robot.commands.autoncommands.MovingInAuton;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonReachLine extends Command
+public class AutonReachLine extends CommandGroup
 {
-	double timeOut;
 
 	public AutonReachLine()
 	{
-		this.timeOut = timeOut;
-		requires(Robot.rDrivetrain);
-		requires(Robot.rClaw);
-		requires(Robot.rLift);
+		// Add Commands here:
+		// e.g. addSequential(new Command1());
+		// addSequential(new Command2());
+		// these will run in order.
 
-	}
+		// To run multiple commands at the same time,
+		// use addParallel()
+		// e.g. addParallel(new Command1());
+		// addSequential(new Command2());
+		// Command1 and Command2 will run in parallel.
 
-	// Called just before this Command runs the first time
-	protected void initialize()
-	{
-		this.setTimeout(timeOut);
-	}
-
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute()
-	{
-		// Robot.rClaw.moveSolenoid(Value.kReverse);
-		while (!Robot.rDrivetrain.checkDisplacementY(1)) {
-			Robot.rDrivetrain.drive(0.2);
-		}
-
-	}
-
-	// Make this return true when this Command no longer needs to run execute()
-	protected boolean isFinished()
-	{
-		return isTimedOut();
-	}
-
-	// Called once after isFinished returns true
-	protected void end()
-	{
-		Robot.rDrivetrain.fullstop();
-	}
-
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	protected void interrupted()
-	{
-		Robot.rDrivetrain.fullstop();
+		// A command group will require all of the subsystems that each member
+		// would require.
+		// e.g. if Command1 requires chassis, and Command2 requires arm,
+		// a CommandGroup containing them would require both the chassis and the
+		// arm.
+		addSequential(new MovingInAuton(1, 'x', .2, .2));
 	}
 }

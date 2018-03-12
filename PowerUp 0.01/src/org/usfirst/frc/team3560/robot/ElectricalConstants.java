@@ -16,8 +16,8 @@ public class ElectricalConstants
 	public static final int DSOLENOID_CLAW_0 = 0;
 	public static final int DSOLENOID_CLAW_1 = 1;
 
-	public static final int DSOLENOID_GEARBOX_0 = 3;
-	public static final int DSOLENOID_GEARBOX_1 = 4;
+	public static final int DSOLENOID_GEARBOX_0 = 2;
+	public static final int DSOLENOID_GEARBOX_1 = 3;
 
 	public static final int DI_BOTTOM_CLAW_SWITCH = 0;
 	public static final int DI_MID_CLAW_SWITCH = 1;

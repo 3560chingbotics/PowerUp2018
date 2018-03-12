@@ -36,29 +36,29 @@ public class MovingInAuton extends Command
 	{
 
 		if (direction == 'x') {
-			while (!Robot.rDrivetrain.checkDisplacementX(desiredPosition)) {
+			while (!Robot.rNavX.checkDisplacementX(desiredPosition)) {
 				Robot.rDrivetrain.driveleft(leftSpeed);
 				Robot.rDrivetrain.driveright(rightSpeed);
 			}
-			while (Robot.rDrivetrain.checkDisplacementX(desiredPosition)) {
+			while (Robot.rNavX.checkDisplacementX(desiredPosition)) {
 				Robot.rDrivetrain.driveleft(0);
 				Robot.rDrivetrain.driveright(0);
 			}
 		} else if (direction == 'y') {
-			while (!Robot.rDrivetrain.checkDisplacementY(desiredPosition)) {
+			while (!Robot.rNavX.checkDisplacementY(desiredPosition)) {
 				Robot.rDrivetrain.driveleft(leftSpeed);
 				Robot.rDrivetrain.driveright(rightSpeed);
 			}
-			while (Robot.rDrivetrain.checkDisplacementY(desiredPosition)) {
+			while (Robot.rNavX.checkDisplacementY(desiredPosition)) {
 				Robot.rDrivetrain.driveleft(0);
 				Robot.rDrivetrain.driveright(0);
 			}
 		} else if (direction == 'z') {
-			while (!Robot.rDrivetrain.checkDisplacementZ(desiredPosition)) {
+			while (!Robot.rNavX.checkDisplacementZ(desiredPosition)) {
 				Robot.rDrivetrain.driveleft(leftSpeed);
 				Robot.rDrivetrain.driveright(rightSpeed);
 			}
-			while (Robot.rDrivetrain.checkDisplacementZ(desiredPosition)) {
+			while (Robot.rNavX.checkDisplacementZ(desiredPosition)) {
 				Robot.rDrivetrain.driveleft(0);
 				Robot.rDrivetrain.driveright(0);
 			}

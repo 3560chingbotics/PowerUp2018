@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class OnLeftGoForScale extends CommandGroup
+public class OnRightGoForScale extends CommandGroup
 {
 
-	public OnLeftGoForScale()
+	public OnRightGoForScale()
 	{
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
@@ -34,30 +34,30 @@ public class OnLeftGoForScale extends CommandGroup
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
+
 		switch (Robot.secondFMSChar)
 		{
 		case 'L':
 			addSequential(new MoveClawSolenoid(Value.kForward));
+			addSequential(new MovingInAuton(5.94, 'y', .2, .2));
+			addSequential(new TurnToAngle(-90));
 			addParallel(new MovingLift(.368));
-			addSequential(new MovingInAuton(8.12, 'y', .2, .2));
+			addSequential(new MovingInAuton(5.3, 'y', .2, .2));
 			addSequential(new TurnToAngle(90));
-			addSequential(new MovingInAuton(0.863, 'y', .2, .2));
+			addSequential(new MovingInAuton(1.55, 'y', .2, .2));
 			addSequential(new MoveClawWheels(-.5));
 
 			break;
 
 		case 'R':
 			addSequential(new MoveClawSolenoid(Value.kForward));
-			addSequential(new MovingInAuton(5.94, 'y', .2, .2));
-			addSequential(new TurnToAngle(90));
 			addParallel(new MovingLift(.368));
-			addSequential(new MovingInAuton(5.3, 'y', .2, .2));
+			addSequential(new MovingInAuton(8.12, 'y', .2, .2));
 			addSequential(new TurnToAngle(-90));
-			addSequential(new MovingInAuton(1.55, 'y', .2, .2));
+			addSequential(new MovingInAuton(0.863, 'y', .2, .2));
 			addSequential(new MoveClawWheels(-.5));
 
 			break;
 		}
 	}
-
 }

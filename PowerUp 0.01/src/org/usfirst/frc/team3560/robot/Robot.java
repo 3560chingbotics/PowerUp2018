@@ -2,9 +2,12 @@ package org.usfirst.frc.team3560.robot;
 
 import org.usfirst.frc.team3560.robot.commands.auton.AutonReachLine;
 import org.usfirst.frc.team3560.robot.commands.auton.AutonTesting;
+import org.usfirst.frc.team3560.robot.commands.auton.OnLeftGoForScale;
+import org.usfirst.frc.team3560.robot.commands.auton.OnRightGoForScale;
 import org.usfirst.frc.team3560.robot.subsystems.Claw;
 import org.usfirst.frc.team3560.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3560.robot.subsystems.Lift;
+import org.usfirst.frc.team3560.robot.subsystems.NavX;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -18,9 +21,11 @@ public class Robot extends TimedRobot
 	public static final Drivetrain rDrivetrain = new Drivetrain();
 	public static final Claw rClaw = new Claw();
 	public static final Lift rLift = new Lift();
+	public static final NavX rNavX = new NavX();
 	public static DriveStick rDriveStick;
 	public static ToolStick rToolStick;
-	public String FMSReading;
+	public static String FMSReading;
+	public static char firstFMSChar, secondFMSChar, thirdFMSChar;
 	Command rAutonomousCommand;
 	SendableChooser<Command> rAutoChooser;
 
@@ -30,12 +35,13 @@ public class Robot extends TimedRobot
 		rDriveStick = new DriveStick();
 		rToolStick = new ToolStick();
 		FMSReading = DriverStation.getInstance().getGameSpecificMessage();
-		System.out.println("Game Data from FMS" + FMSReading);
+		SmartDashboard.putString("Game Data from FMS", FMSReading);
 		rAutoChooser = new SendableChooser<Command>();
 		rAutoChooser.addDefault("AutonReachLine", new AutonReachLine());
 		rAutoChooser.addObject("AutonTesting", new AutonTesting());
+		rAutoChooser.addObject("OnLeftGoForScale", new OnLeftGoForScale());
+		rAutoChooser.addObject("OnRightGoForScale", new OnRightGoForScale());
 		SmartDashboard.putData("Auto mode", rAutoChooser);
-
 	}
 
 	@Override
@@ -66,6 +72,7 @@ public class Robot extends TimedRobot
 	{
 		Scheduler.getInstance().run();
 		Robot.rLift.updateSwitchCount();
+		Robot.rNavX.displayNavXData();
 	}
 
 	@Override
@@ -80,18 +87,30 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic()
 	{
 		Scheduler.getInstance().run();
-
 		Robot.rLift.updateSwitchCount();
-
-		SmartDashboard.putBoolean("IMU_Connected", Robot.rDrivetrain.ahrs.isConnected());
-		SmartDashboard.putBoolean("IMU_IsCalibrating", Robot.rDrivetrain.ahrs.isCalibrating());
-		SmartDashboard.putNumber("IMU_Yaw", Robot.rDrivetrain.ahrs.getYaw());
-		SmartDashboard.putNumber("IMU_Pitch", Robot.rDrivetrain.ahrs.getPitch());
-		SmartDashboard.putNumber("IMU_Roll", Robot.rDrivetrain.ahrs.getRoll());
+		Robot.rNavX.displayNavXData();
 	}
 
 	@Override
 	public void testPeriodic()
 	{
+	}
+
+	public char getFirstCharFMS()
+	{
+		firstFMSChar = FMSReading.charAt(0);
+		return firstFMSChar;
+	}
+
+	public char getSecondCharFMS()
+	{
+		secondFMSChar = FMSReading.charAt(1);
+		return secondFMSChar;
+	}
+
+	public char getThirdCharFMS()
+	{
+		thirdFMSChar = FMSReading.charAt(2);
+		return thirdFMSChar;
 	}
 }

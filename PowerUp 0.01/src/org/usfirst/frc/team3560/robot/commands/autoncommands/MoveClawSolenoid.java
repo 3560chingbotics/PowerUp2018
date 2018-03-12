@@ -17,6 +17,7 @@ public class MoveClawSolenoid extends Command
 	{
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		requires(Robot.rClaw);
 		this.direction = direction;
 
 	}

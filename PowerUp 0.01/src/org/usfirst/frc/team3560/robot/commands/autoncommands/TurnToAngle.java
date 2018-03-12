@@ -29,12 +29,12 @@ public class TurnToAngle extends Command
 	protected void execute()
 	{
 		if (0 > desiredAngle) {
-			while (!Robot.rDrivetrain.checkRotationAngle(desiredAngle)) {
+			while (!Robot.rNavX.checkRotationAngle(desiredAngle)) {
 				Robot.rDrivetrain.driveright(0.2);
 			}
 		}
 		if (0 < desiredAngle) {
-			while (!Robot.rDrivetrain.checkRotationAngle(desiredAngle)) {
+			while (!Robot.rNavX.checkRotationAngle(desiredAngle)) {
 				Robot.rDrivetrain.driveleft(0.2);
 			}
 		}

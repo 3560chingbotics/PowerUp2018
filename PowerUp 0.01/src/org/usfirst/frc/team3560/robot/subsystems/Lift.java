@@ -17,11 +17,11 @@ public class Lift extends Subsystem
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
-	static final private int bottomClawSwitch = 0;
-	static final private int midClawSwitch = 1;
-	static final private int topClawSwitch = 2;
-	static final private int midLiftSwitch = 3;
-	static final private int topLiftSwitch = 4;
+	static final public int bottomClawSwitch = 0;
+	static final public int midClawSwitch = 1;
+	static final public int topClawSwitch = 2;
+	static final public int midLiftSwitch = 3;
+	static final public int topLiftSwitch = 4;
 	static private int switchCount = 0;
 	VictorSP motor1;
 	DigitalInput[] switchs;
