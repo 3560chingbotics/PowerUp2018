@@ -38,7 +38,7 @@ public class OnLeftGoForScale extends CommandGroup
 		{
 		case 'L':
 			addSequential(new MoveClawSolenoid(Value.kForward));
-			addParallel(new MovingLift(.368));
+			addParallel(new MovingLift(.9));
 			addSequential(new MovingInAuton(8.12, 'y', .2, .2));
 			addSequential(new TurnToAngle(90));
 			addSequential(new MovingInAuton(0.863, 'y', .2, .2));
@@ -50,7 +50,7 @@ public class OnLeftGoForScale extends CommandGroup
 			addSequential(new MoveClawSolenoid(Value.kForward));
 			addSequential(new MovingInAuton(5.94, 'y', .2, .2));
 			addSequential(new TurnToAngle(90));
-			addParallel(new MovingLift(.368));
+			addParallel(new MovingLift(.9));
 			addSequential(new MovingInAuton(5.3, 'y', .2, .2));
 			addSequential(new TurnToAngle(-90));
 			addSequential(new MovingInAuton(1.55, 'y', .2, .2));

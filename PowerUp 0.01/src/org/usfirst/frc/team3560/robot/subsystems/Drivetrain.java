@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3560.robot.subsystems;
 
 import org.usfirst.frc.team3560.robot.ElectricalConstants;
+import org.usfirst.frc.team3560.robot.Robot;
 import org.usfirst.frc.team3560.robot.commands.Driving;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -20,6 +22,7 @@ public class Drivetrain extends Subsystem
 	private WPI_TalonSRX frontLeft, frontRight, backLeft, backRight; // Declare the 4 motors
 	private DoubleSolenoid solenoid1; // declare the one solenoid for the gearboxes.
 	private Timer time;
+	public double driveSpeed;
 
 	public Drivetrain()
 	{
@@ -82,6 +85,24 @@ public class Drivetrain extends Subsystem
 	public void changeGearRatio(Value direction)
 	{
 		solenoid1.set(direction);
+	}
+
+	public void checkDriveSpeed()
+	{
+		if (Robot.rDriveStick.getJoyTrigger()) {
+			Robot.rDrivetrain.changeGearRatio(Value.kForward);
+		} else {
+			Robot.rDrivetrain.changeGearRatio(Value.kReverse);
+		}
+
+		if (Robot.rDriveStick.getSlider() > 0.8) {
+			driveSpeed = 0.8;
+		} else if (Robot.rDriveStick.getSlider() < 0.2) {
+			driveSpeed = 0.2;
+		} else if (Robot.rDriveStick.getSlider() < 0.8 && Robot.rDriveStick.getSlider() > 0.2) {
+			driveSpeed = Robot.rDriveStick.getSlider();
+		}
+		SmartDashboard.putNumber("Drive Speed", driveSpeed);
 	}
 
 	public void startTimer()

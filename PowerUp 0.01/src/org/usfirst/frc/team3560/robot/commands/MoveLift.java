@@ -33,9 +33,9 @@ public class MoveLift extends Command
 	protected void execute()
 	{
 		if (Robot.rToolStick.getToolXButton()) {
-			Robot.rLift.spinLiftMotor(0.368);
-		} else if (Robot.rToolStick.getToolYButton()) {
-			Robot.rLift.spinLiftMotor(-0.368);
+			Robot.rLift.spinLiftMotor(0.9);
+		} else if (Robot.rToolStick.getToolBButton()) {
+			Robot.rLift.spinLiftMotor(-0.5);
 		} else {
 			Robot.rLift.spinLiftMotor(0);
 		}

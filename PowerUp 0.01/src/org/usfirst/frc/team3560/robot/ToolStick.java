@@ -48,7 +48,7 @@ public class ToolStick
 	public double getToolRightY()
 	{
 		double joy = toolStick.getRawAxis(JoyStickConstants.RIGHT_ANALOG_Y);
-		if (Math.abs(joy) < 0.05)
+		if (Math.abs(joy) < 0.10)
 			return 0.0;
 		else
 			return joy;
@@ -62,7 +62,7 @@ public class ToolStick
 	public double getToolLeftY()
 	{
 		double joy = toolStick.getRawAxis(JoyStickConstants.LEFT_ANALOG_Y);
-		if (Math.abs(joy) < 0.05)
+		if (Math.abs(joy) < 0.10)
 			return 0.0;
 		else
 			return joy;
@@ -76,7 +76,7 @@ public class ToolStick
 	public double getToolRightX()
 	{
 		double joy = toolStick.getRawAxis(JoyStickConstants.RIGHT_ANALOG_X);
-		if (Math.abs(joy) < 0.05)
+		if (Math.abs(joy) < 0.10)
 			return 0.0;
 		else
 			return joy;
@@ -90,7 +90,7 @@ public class ToolStick
 	public double getToolLeftX()
 	{
 		double joy = toolStick.getRawAxis(JoyStickConstants.LEFT_ANALOG_X);
-		if (Math.abs(joy) < 0.05)
+		if (Math.abs(joy) < 0.10)
 			return 0.0;
 		else
 			return joy;

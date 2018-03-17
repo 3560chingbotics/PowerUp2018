@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3560.robot.commands.autoncommands;
+package org.usfirst.frc.team3560.robot.commands.auton;
 
 import org.usfirst.frc.team3560.robot.Robot;
 
@@ -7,17 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TurnToAngle extends Command
+public class NoAuton extends Command
 {
 
-	double desiredAngle;
-
-	public TurnToAngle(double desiredAngle)
+	public NoAuton()
 	{
-		requires(Robot.rDrivetrain);
-
-		this.desiredAngle = desiredAngle;
-
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
@@ -28,7 +24,7 @@ public class TurnToAngle extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		Robot.rNavX.rotateToAngle(desiredAngle);
+		Robot.rDrivetrain.drive(0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

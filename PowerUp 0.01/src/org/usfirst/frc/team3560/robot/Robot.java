@@ -1,9 +1,10 @@
 package org.usfirst.frc.team3560.robot;
 
 import org.usfirst.frc.team3560.robot.commands.auton.AutonReachLine;
-import org.usfirst.frc.team3560.robot.commands.auton.AutonTesting;
+import org.usfirst.frc.team3560.robot.commands.auton.NoAuton;
 import org.usfirst.frc.team3560.robot.commands.auton.OnLeftGoForScale;
 import org.usfirst.frc.team3560.robot.commands.auton.OnRightGoForScale;
+import org.usfirst.frc.team3560.robot.commands.auton.TimedAuton;
 import org.usfirst.frc.team3560.robot.subsystems.Claw;
 import org.usfirst.frc.team3560.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3560.robot.subsystems.Lift;
@@ -37,8 +38,10 @@ public class Robot extends TimedRobot
 		FMSReading = DriverStation.getInstance().getGameSpecificMessage();
 		SmartDashboard.putString("Game Data from FMS", FMSReading);
 		rAutoChooser = new SendableChooser<Command>();
-		rAutoChooser.addDefault("AutonReachLine", new AutonReachLine());
-		rAutoChooser.addObject("AutonTesting", new AutonTesting());
+		rAutoChooser.addDefault("NoAuton", new NoAuton());
+		rAutoChooser.addObject("AutonReachLine", new AutonReachLine());
+		rAutoChooser.addObject("TimedAuton", new TimedAuton());
+		// rAutoChooser.addObject("AutonTesting", new AutonTesting());
 		rAutoChooser.addObject("OnLeftGoForScale", new OnLeftGoForScale());
 		rAutoChooser.addObject("OnRightGoForScale", new OnRightGoForScale());
 		SmartDashboard.putData("Auto mode", rAutoChooser);
@@ -65,6 +68,10 @@ public class Robot extends TimedRobot
 		if (rAutonomousCommand != null) {
 			rAutonomousCommand.start();
 		}
+		Robot.rNavX.turnController.enable();
+		Robot.rNavX.resetYaw();
+		Robot.rNavX.resetDisplacement();
+		Robot.rNavX.displayNavXData();
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class Robot extends TimedRobot
 	{
 		Scheduler.getInstance().run();
 		Robot.rLift.updateSwitchCount();
-		Robot.rNavX.displayNavXData();
+		SmartDashboard.updateValues();
 	}
 
 	@Override
@@ -81,6 +88,9 @@ public class Robot extends TimedRobot
 		if (rAutonomousCommand != null) {
 			rAutonomousCommand.cancel();
 		}
+		Robot.rNavX.turnController.disable();
+		Robot.rNavX.resetYaw();
+		Robot.rNavX.resetDisplacement();
 	}
 
 	@Override
@@ -88,7 +98,7 @@ public class Robot extends TimedRobot
 	{
 		Scheduler.getInstance().run();
 		Robot.rLift.updateSwitchCount();
-		Robot.rNavX.displayNavXData();
+		SmartDashboard.updateValues();
 	}
 
 	@Override

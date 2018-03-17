@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveClaw extends Command
 {
 
-	double spinSpeed = 0.5;
+	double spinSpeed = 0.7;
 
 	public MoveClaw()
 	{
@@ -26,8 +26,10 @@ public class MoveClaw extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
+		/*
 		System.out.println("C Current" + Robot.rClaw.compressor.getCompressorCurrent());
 		System.out.println("Pressure Switch" + Robot.rClaw.compressor.getPressureSwitchValue());
+		*/
 
 		Robot.rClaw.rotateWheels(Robot.rToolStick.getToolLeftY() * spinSpeed);
 

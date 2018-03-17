@@ -2,13 +2,10 @@ package org.usfirst.frc.team3560.robot.commands;
 
 import org.usfirst.frc.team3560.robot.Robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Driving extends Command
 {
-	private double driveSpeed;
 
 	public Driving()
 	{
@@ -27,22 +24,7 @@ public class Driving extends Command
 	protected void execute()
 	{
 
-		if (Robot.rDriveStick.getJoyTrigger()) {
-			Robot.rDrivetrain.changeGearRatio(Value.kForward);
-		} else {
-			Robot.rDrivetrain.changeGearRatio(Value.kReverse);
-		}
-
-		driveSpeed = (Robot.rDriveStick.getSlider());
-		if (Robot.rDriveStick.getSlider() > 0.8) {
-			driveSpeed = 0.8;
-		} else if (Robot.rDriveStick.getSlider() < 0.3) {
-			driveSpeed = 0.3;
-		} else {
-			driveSpeed = driveSpeed;
-		}
-
-		SmartDashboard.putNumber("Drive Speed", driveSpeed);
+		Robot.rDrivetrain.checkDriveSpeed();
 
 		// Tank Drive
 		// Robot.rDrivetrain.driveleft((driveSpeed) *
@@ -52,16 +34,16 @@ public class Driving extends Command
 
 		// Arcade JoyStick Drive Single Stick
 		if (!Robot.rDriveStick.getJoyLeftCloseRightButton()) {
-			Robot.rDrivetrain.driveleft(driveSpeed * (Robot.rDriveStick.getJoyY() + Robot.rDriveStick.getJoyZ()));
-			Robot.rDrivetrain.driveright(driveSpeed * (Robot.rDriveStick.getJoyY() - Robot.rDriveStick.getJoyZ()));
+			Robot.rDrivetrain.driveleft(Robot.rDrivetrain.driveSpeed * (Robot.rDriveStick.getJoyY() - Robot.rDriveStick.getJoyZ()));
+			Robot.rDrivetrain.driveright(Robot.rDrivetrain.driveSpeed * (Robot.rDriveStick.getJoyY() + Robot.rDriveStick.getJoyZ()));
 		}
 
 		if (Robot.rDriveStick.getJoyLeftCloseRightButton()) {
 			if (Robot.rDriveStick.getJoyX() > 0) {
-				Robot.rDrivetrain.driveleft(driveSpeed * Robot.rDriveStick.getJoyX());
+				Robot.rDrivetrain.driveleft(Robot.rDrivetrain.driveSpeed * Robot.rDriveStick.getJoyX());
 			}
 			if (Robot.rDriveStick.getJoyX() < 0) {
-				Robot.rDrivetrain.driveright(driveSpeed * Robot.rDriveStick.getJoyX());
+				Robot.rDrivetrain.driveright(Robot.rDrivetrain.driveSpeed * Robot.rDriveStick.getJoyX());
 			}
 
 		}
