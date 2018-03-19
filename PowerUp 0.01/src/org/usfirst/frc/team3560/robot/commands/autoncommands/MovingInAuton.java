@@ -35,34 +35,35 @@ public class MovingInAuton extends Command
 	protected void execute()
 	{
 
+		Robot.rPIDNavXMoving.moveDisplacementX(desiredPosition);
+		/*
 		if (direction == 'x') {
-			while (!Robot.rNavX.checkDisplacementX(desiredPosition)) {
+			if (!Robot.rNavX.moveDisplacementX(desiredPosition)) {
 				Robot.rDrivetrain.driveleft(leftSpeed);
 				Robot.rDrivetrain.driveright(rightSpeed);
-			}
-			while (Robot.rNavX.checkDisplacementX(desiredPosition)) {
-				Robot.rDrivetrain.driveleft(0);
-				Robot.rDrivetrain.driveright(0);
-			}
-		} else if (direction == 'y') {
-			while (!Robot.rNavX.checkDisplacementY(desiredPosition)) {
-				Robot.rDrivetrain.driveleft(leftSpeed);
-				Robot.rDrivetrain.driveright(rightSpeed);
-			}
-			while (Robot.rNavX.checkDisplacementY(desiredPosition)) {
-				Robot.rDrivetrain.driveleft(0);
-				Robot.rDrivetrain.driveright(0);
-			}
-		} else if (direction == 'z') {
-			while (!Robot.rNavX.checkDisplacementZ(desiredPosition)) {
-				Robot.rDrivetrain.driveleft(leftSpeed);
-				Robot.rDrivetrain.driveright(rightSpeed);
-			}
-			while (Robot.rNavX.checkDisplacementZ(desiredPosition)) {
+			} else {
 				Robot.rDrivetrain.driveleft(0);
 				Robot.rDrivetrain.driveright(0);
 			}
 		}
+		} else if (direction == 'y') {
+		if (!Robot.rNavX.checkDisplacementY(desiredPosition)) {
+			Robot.rDrivetrain.driveleft(leftSpeed);
+			Robot.rDrivetrain.driveright(rightSpeed);
+		} else {
+			Robot.rDrivetrain.driveleft(0);
+			Robot.rDrivetrain.driveright(0);
+		}
+		} else if (direction == 'z') {
+		if (!Robot.rNavX.checkDisplacementZ(desiredPosition)) {
+			Robot.rDrivetrain.driveleft(leftSpeed);
+			Robot.rDrivetrain.driveright(rightSpeed);
+		} else {
+			Robot.rDrivetrain.driveleft(0);
+			Robot.rDrivetrain.driveright(0);
+		}
+		}
+		*/
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

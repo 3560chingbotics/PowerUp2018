@@ -1,16 +1,20 @@
 package org.usfirst.frc.team3560.robot.commands.auton;
 
+import org.usfirst.frc.team3560.robot.commands.autoncommands.MoveClawSolenoid;
+import org.usfirst.frc.team3560.robot.commands.autoncommands.MoveClawWheels;
 import org.usfirst.frc.team3560.robot.commands.autoncommands.MovingInAuton;
+import org.usfirst.frc.team3560.robot.commands.autoncommands.MovingLift;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonReachLine extends CommandGroup
+public class OnLeftGoForSwitch extends CommandGroup
 {
 
-	public AutonReachLine()
+	public OnLeftGoForSwitch()
 	{
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
@@ -28,6 +32,12 @@ public class AutonReachLine extends CommandGroup
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
-		addSequential(new MovingInAuton(4.5, 'x', .2, .2));
+
+		addParallel(new MoveClawWheels(-.5));
+		addSequential(new MoveClawSolenoid(Value.kForward));
+		addSequential(new MovingInAuton(3.28, 'x', .2, .2));
+		addParallel(new MovingLift(.5));
+		addSequential(new MovingInAuton(.3, 'x', .2, .2));
+		addSequential(new MoveClawSolenoid(Value.kReverse));
 	}
 }

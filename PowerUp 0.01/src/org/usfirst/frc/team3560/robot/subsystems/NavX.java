@@ -1,35 +1,38 @@
 package org.usfirst.frc.team3560.robot.subsystems;
 
-import org.usfirst.frc.team3560.robot.Robot;
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class NavX extends Subsystem implements PIDOutput
+public class NavX extends Subsystem
 {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
 	public AHRS ahrs; // declare the NavX
-	public PIDController turnController;
-	private double rotationRate;
-
-	static final double P = 0.03;
-	static final double I = 0.00;
-	static final double D = 0.00;
-	static final double F = 0.00;
-	static final double toleranceDegrees = 2.0f;
+	/*
+	public PIDController turnController, moveController;
+	public double rotationRate, moveRate;
+	
+	static final double turnP = 0.03;
+	static final double turnI = 0.00;
+	static final double turnD = 0.00;
+	static final double turnF = 0.00;
+	static final double turnToleranceDegrees = 2.0f;
+	
+	static final double moveP = 0.03;
+	static final double moveI = 0.00;
+	static final double moveD = 0.00;
+	static final double moveF = 0.00;
+	static final double moveToleranceMetres = 0.1f;
+	*/
 
 	public void initDefaultCommand()
 	{
@@ -50,13 +53,21 @@ public class NavX extends Subsystem implements PIDOutput
 			DriverStation.reportError("Error instantiating navX-MXP:" + ex.getMessage(), true);
 		}
 
-		turnController = new PIDController(P, I, D, F, ahrs, this);
+		/*
+		turnController = new PIDController(turnP, turnI, turnD, turnF, ahrs, );
 		turnController.setInputRange(-180.0f, 180.0f);
 		turnController.setOutputRange(-1.0, 1.0);
-		turnController.setAbsoluteTolerance(toleranceDegrees);
+		turnController.setAbsoluteTolerance(turnToleranceDegrees);
 		turnController.setContinuous(true);
-		LiveWindow.addActuator("DriveSystem", "RotateController", turnController);
-
+		LiveWindow.addActuator("NavX", "RotateController", turnController);
+		
+		moveController = new PIDController(moveP, moveI, moveD, moveF, ahrs, this);
+		moveController.setInputRange(-20, 20);
+		moveController.setOutputRange(-1.0, 1.0);
+		moveController.setAbsoluteTolerance(moveToleranceMetres);
+		moveController.setContinuous(false);
+		LiveWindow.addActuator("NavX", "MoveController", moveController);
+		*/
 	}
 
 	public void displayNavXData()
@@ -75,7 +86,7 @@ public class NavX extends Subsystem implements PIDOutput
 
 	public void resetYaw()
 	{
-		ahrs.reset();
+		ahrs.zeroYaw();
 	}
 
 	public void resetDisplacement()
@@ -83,26 +94,23 @@ public class NavX extends Subsystem implements PIDOutput
 		ahrs.resetDisplacement();
 	}
 
-	public double turnController()
+	public double getYaw()
 	{
-		return turnController.get();
+		return ahrs.pidGet();
 	}
 
-	// Used to check if an angle has been reached
-	/*public boolean checkRotationAngle(double TargetAngleDegrees)
+	public double getDisplacementX()
 	{
-		boolean gyroAngleReached = false;
-		turnController.setSetpoint(TargetAngleDegrees);
-		// If the angle of the robot has reached the desired angle,
-		// the boolean will turn true, if not it will be false
-		if (ahrs.getYaw() >= 0 && ahrs.getYaw() >= TargetAngleDegrees || ahrs.getYaw() <= 0 && ahrs.getYaw() <= TargetAngleDegrees) {
-			gyroAngleReached = true;
-		} else {
-			gyroAngleReached = false;
+		return ahrs.getDisplacementX();
+	}
+	/*
+		public double turnController()
+		{
+			return turnController.get();
 		}
-		return gyroAngleReached;
-	} */
+		*/
 
+	/*
 	public void rotateToAngle(double targetAngleDegrees)
 	{
 		turnController.setSetpoint(targetAngleDegrees);
@@ -110,9 +118,10 @@ public class NavX extends Subsystem implements PIDOutput
 		Robot.rDrivetrain.driveleft(-currentRotationRate);
 		Robot.rDrivetrain.driveright(currentRotationRate);
 	}
+	*/
 
 	// Used to check if an distance in the X axis has been reached
-	public boolean checkDisplacementX(double TargetDisplacement)
+	public boolean moveDisplacementX(double TargetDisplacement)
 	{
 		boolean gyroDisplacementReached = false;
 		// If the displacement of the robot has reached the desired distance,
@@ -127,7 +136,7 @@ public class NavX extends Subsystem implements PIDOutput
 	}
 
 	// Used to check if an distance in the X axis has been reached
-	public boolean checkDisplacementY(double TargetDisplacement)
+	public boolean moveDisplacementY(double TargetDisplacement)
 	{
 		boolean gyroDisplacementReached = false;
 		// If the displacement of the robot has reached the desired distance,
@@ -141,7 +150,7 @@ public class NavX extends Subsystem implements PIDOutput
 		return gyroDisplacementReached;
 	}
 
-	public boolean checkDisplacementZ(double TargetDisplacement)
+	public boolean moveDisplacementZ(double TargetDisplacement)
 	{
 		boolean gyroDisplacementReached = false;
 		// If the displacement of the robot has reached the desired distance,
@@ -154,12 +163,4 @@ public class NavX extends Subsystem implements PIDOutput
 		// ahrs.resetDisplacement(); // Resets the distance travelled to 0
 		return gyroDisplacementReached;
 	}
-
-	@Override
-	public void pidWrite(double output)
-	{
-		// TODO Auto-generated method stub
-		rotationRate = output;
-	}
-
 }

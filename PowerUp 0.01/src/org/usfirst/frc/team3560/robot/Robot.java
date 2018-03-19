@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3560.robot;
 
 import org.usfirst.frc.team3560.robot.commands.auton.AutonReachLine;
+import org.usfirst.frc.team3560.robot.commands.auton.AutonTesting;
 import org.usfirst.frc.team3560.robot.commands.auton.NoAuton;
 import org.usfirst.frc.team3560.robot.commands.auton.OnLeftGoForScale;
 import org.usfirst.frc.team3560.robot.commands.auton.OnRightGoForScale;
@@ -9,7 +10,10 @@ import org.usfirst.frc.team3560.robot.subsystems.Claw;
 import org.usfirst.frc.team3560.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3560.robot.subsystems.Lift;
 import org.usfirst.frc.team3560.robot.subsystems.NavX;
+import org.usfirst.frc.team3560.robot.subsystems.PIDNavXMoving;
+import org.usfirst.frc.team3560.robot.subsystems.PIDNavXTurning;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -23,6 +27,8 @@ public class Robot extends TimedRobot
 	public static final Claw rClaw = new Claw();
 	public static final Lift rLift = new Lift();
 	public static final NavX rNavX = new NavX();
+	public static final PIDNavXTurning rPIDNavXTurning = new PIDNavXTurning();
+	public static final PIDNavXMoving rPIDNavXMoving = new PIDNavXMoving();
 	public static DriveStick rDriveStick;
 	public static ToolStick rToolStick;
 	public static String FMSReading;
@@ -37,11 +43,12 @@ public class Robot extends TimedRobot
 		rToolStick = new ToolStick();
 		FMSReading = DriverStation.getInstance().getGameSpecificMessage();
 		SmartDashboard.putString("Game Data from FMS", FMSReading);
+		CameraServer.getInstance().startAutomaticCapture(0); // Camera Enabling
 		rAutoChooser = new SendableChooser<Command>();
 		rAutoChooser.addDefault("NoAuton", new NoAuton());
 		rAutoChooser.addObject("AutonReachLine", new AutonReachLine());
 		rAutoChooser.addObject("TimedAuton", new TimedAuton());
-		// rAutoChooser.addObject("AutonTesting", new AutonTesting());
+		rAutoChooser.addObject("AutonTesting", new AutonTesting());
 		rAutoChooser.addObject("OnLeftGoForScale", new OnLeftGoForScale());
 		rAutoChooser.addObject("OnRightGoForScale", new OnRightGoForScale());
 		SmartDashboard.putData("Auto mode", rAutoChooser);
@@ -68,7 +75,7 @@ public class Robot extends TimedRobot
 		if (rAutonomousCommand != null) {
 			rAutonomousCommand.start();
 		}
-		Robot.rNavX.turnController.enable();
+		// Robot.rNavX.turnController.enable();
 		Robot.rNavX.resetYaw();
 		Robot.rNavX.resetDisplacement();
 		Robot.rNavX.displayNavXData();
@@ -88,7 +95,7 @@ public class Robot extends TimedRobot
 		if (rAutonomousCommand != null) {
 			rAutonomousCommand.cancel();
 		}
-		Robot.rNavX.turnController.disable();
+		// Robot.rNavX.turnController.disable();
 		Robot.rNavX.resetYaw();
 		Robot.rNavX.resetDisplacement();
 	}
@@ -97,7 +104,7 @@ public class Robot extends TimedRobot
 	public void teleopPeriodic()
 	{
 		Scheduler.getInstance().run();
-		Robot.rLift.updateSwitchCount();
+		// Robot.rLift.updateSwitchCount();
 		SmartDashboard.updateValues();
 	}
 

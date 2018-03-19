@@ -39,24 +39,23 @@ public class OnRightGoForScale extends CommandGroup
 		{
 		case 'L':
 			addSequential(new MoveClawSolenoid(Value.kForward));
-			addSequential(new MovingInAuton(5.94, 'y', .2, .2));
+			addParallel(new MoveClawWheels(-.5));
+			addSequential(new MovingInAuton(5.94, 'x', .2, .2));
 			addSequential(new TurnToAngle(-90));
 			addParallel(new MovingLift(.9));
-			addSequential(new MovingInAuton(5.3, 'y', .2, .2));
+			addSequential(new MovingInAuton(5.3, 'x', .2, .2));
 			addSequential(new TurnToAngle(90));
-			addSequential(new MovingInAuton(1.55, 'y', .2, .2));
-			addSequential(new MoveClawWheels(-.5));
+			addSequential(new MovingInAuton(1.55, 'x', .2, .2));
 
 			break;
 
 		case 'R':
 			addSequential(new MoveClawSolenoid(Value.kForward));
+			addParallel(new MoveClawWheels(-.5));
 			addParallel(new MovingLift(.9));
-			addSequential(new MovingInAuton(8.12, 'y', .2, .2));
+			addSequential(new MovingInAuton(8.12, 'x', .2, .2));
 			addSequential(new TurnToAngle(-90));
-			addSequential(new MovingInAuton(0.863, 'y', .2, .2));
-			addSequential(new MoveClawWheels(-.5));
-
+			addSequential(new MovingInAuton(0.863, 'x', .2, .2));
 			break;
 		}
 	}

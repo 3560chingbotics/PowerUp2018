@@ -31,26 +31,18 @@ public class MoveClaw extends Command
 		System.out.println("Pressure Switch" + Robot.rClaw.compressor.getPressureSwitchValue());
 		*/
 
-		Robot.rClaw.rotateWheels(Robot.rToolStick.getToolLeftY() * spinSpeed);
-
+		if (Robot.rToolStick.getToolRightBumper()) {
+			Robot.rClaw.rotateWheels(spinSpeed);
+		} else if (Robot.rToolStick.getToolLeftBumper()) {
+			Robot.rClaw.rotateWheels(-spinSpeed);
+		} else {
+			Robot.rClaw.rotateWheels(0);
+		}
 		if (Robot.rToolStick.getToolLeftTrigger()) {
 			Robot.rClaw.moveSolenoid(Value.kForward);
 		} else if (Robot.rToolStick.getToolRightTrigger()) {
 			Robot.rClaw.moveSolenoid(Value.kReverse);
-		} else if (Robot.rToolStick.getToolLeftBumper()) {
-			Robot.rClaw.moveSolenoid(Value.kOff);
 		}
-
-		/*
-		if (Robot.rToolStick.getToolLeftTrigger()) {
-			Robot.rClaw.openSolenoid();
-		} else if (Robot.rToolStick.getToolRightTrigger()) {
-			Robot.rClaw.closeSolenoid();
-		} else if (Robot.rToolStick.getToolLeftBumper()) {
-			Robot.rClaw.offSolenoid();
-		}
-		*/
-
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -64,7 +56,6 @@ public class MoveClaw extends Command
 	{
 		Robot.rClaw.rotateWheels(0);
 		Robot.rClaw.moveSolenoid(Value.kOff);
-		// Robot.rClaw.offSolenoid();
 	}
 
 	// Called when another command which requires one or more of the same
@@ -73,6 +64,5 @@ public class MoveClaw extends Command
 	{
 		Robot.rClaw.rotateWheels(0);
 		Robot.rClaw.moveSolenoid(Value.kOff);
-		// Robot.rClaw.offSolenoid();
 	}
 }
