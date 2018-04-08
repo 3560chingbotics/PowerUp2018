@@ -48,7 +48,7 @@ public class DriveStick
 	public double getJoyY()
 	{
 		double joy = driveStick.getRawAxis(JoyStickConstants.JOY_ANALOG_Y);
-		if (Math.abs(joy) < 0.1) {
+		if (Math.abs(joy) < 0.15) {
 			return 0.0;
 		} else {
 			return joy;
@@ -58,7 +58,7 @@ public class DriveStick
 	public double getJoyX()
 	{
 		double joy = driveStick.getRawAxis(JoyStickConstants.JOY_ANALOG_X);
-		if (Math.abs(joy) < 0.1) {
+		if (Math.abs(joy) < 0.15) {
 			return 0.0;
 		} else {
 			return joy;
@@ -68,7 +68,7 @@ public class DriveStick
 	public double getJoyZ()
 	{
 		double joy = driveStick.getRawAxis(JoyStickConstants.JOY_ANALOG_Z);
-		if (Math.abs(joy) < 0.1)
+		if (Math.abs(joy) < 0.15)
 			return 0.0;
 		else
 			return joy;

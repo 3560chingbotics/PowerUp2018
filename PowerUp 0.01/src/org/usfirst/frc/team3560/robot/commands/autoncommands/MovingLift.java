@@ -10,37 +10,36 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MovingLift extends Command
 {
 
-	double speed;
+	double speed, timeOut;
 	int desiredPosition;
 
-	public MovingLift(double speed/*,double desiredPosition*/)
+	public MovingLift(double speed, double timeOut)
 	{
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.rLift);
 		this.speed = speed;
+		this.timeOut = timeOut;
 		// this.desiredPosition = desiredPosition
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
-		Robot.rDrivetrain.startTimer();
+		this.setTimeout(timeOut);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		while (!Robot.rDrivetrain.timeDone(5)) {
-			Robot.rLift.spinLiftMotor(.368);
-		}
+		Robot.rLift.spinLiftMotor(.9);
 		// Robot.rLift.driveLift(Lift.topLiftSwitch);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return false;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true

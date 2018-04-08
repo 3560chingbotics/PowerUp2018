@@ -38,9 +38,9 @@ public class MoveClaw extends Command
 		} else {
 			Robot.rClaw.rotateWheels(0);
 		}
-		if (Robot.rToolStick.getToolLeftTrigger()) {
+		if (Robot.rToolStick.getToolRightTrigger()) {
 			Robot.rClaw.moveSolenoid(Value.kForward);
-		} else if (Robot.rToolStick.getToolRightTrigger()) {
+		} else if (Robot.rToolStick.getToolLeftTrigger()) {
 			Robot.rClaw.moveSolenoid(Value.kReverse);
 		}
 	}

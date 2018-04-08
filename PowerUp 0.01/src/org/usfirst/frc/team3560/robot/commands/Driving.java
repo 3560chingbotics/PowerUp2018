@@ -38,15 +38,13 @@ public class Driving extends Command
 			Robot.rDrivetrain.driveright(Robot.rDrivetrain.driveSpeed * (Robot.rDriveStick.getJoyY() + Robot.rDriveStick.getJoyZ()));
 		}
 
-		if (Robot.rDriveStick.getJoyLeftCloseRightButton()) {
+		/*if (Robot.rDriveStick.getJoyLeftCloseRightButton()) {
 			if (Robot.rDriveStick.getJoyX() > 0) {
 				Robot.rDrivetrain.driveleft(Robot.rDrivetrain.driveSpeed * Robot.rDriveStick.getJoyX());
 			}
 			if (Robot.rDriveStick.getJoyX() < 0) {
 				Robot.rDrivetrain.driveright(Robot.rDrivetrain.driveSpeed * Robot.rDriveStick.getJoyX());
-			}
-
-		}
+			}*/
 
 		// Arcade Stick Dual Stick
 		// Robot.rDrivetrain.driveleft(driveSpeed * (Robot.rDriveStick.getDriveLeftY() +
@@ -65,13 +63,15 @@ public class Driving extends Command
 	// Called once after isFinished returns true
 	protected void end()
 	{
-		Robot.rDrivetrain.fullstop();
+		// Robot.rDrivetrain.driveSpeed = 0;
+		// Robot.rDrivetrain.fullstop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted()
 	{
+		Robot.rDrivetrain.driveSpeed = 0;
 		Robot.rDrivetrain.fullstop();
 	}
 }

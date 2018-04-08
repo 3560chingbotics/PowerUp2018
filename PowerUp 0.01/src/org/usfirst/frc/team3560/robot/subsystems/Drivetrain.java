@@ -90,9 +90,9 @@ public class Drivetrain extends Subsystem
 	public void checkDriveSpeed()
 	{
 		if (Robot.rDriveStick.getJoyTrigger()) {
-			Robot.rDrivetrain.changeGearRatio(Value.kForward);
-		} else {
 			Robot.rDrivetrain.changeGearRatio(Value.kReverse);
+		} else {
+			Robot.rDrivetrain.changeGearRatio(Value.kForward);
 		}
 
 		if (Robot.rDriveStick.getSlider() > 0.8) {

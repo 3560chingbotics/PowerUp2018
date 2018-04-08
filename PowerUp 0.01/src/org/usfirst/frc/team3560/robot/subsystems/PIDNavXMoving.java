@@ -57,5 +57,6 @@ public class PIDNavXMoving extends PIDSubsystem
 		setSetpoint(desiredPosition);
 		Robot.rDrivetrain.driveleft(moveRate);
 		Robot.rDrivetrain.driveright(moveRate);
+		System.out.println(moveRate);
 	}
 }

@@ -121,7 +121,8 @@ public class NavX extends Subsystem
 	*/
 
 	// Used to check if an distance in the X axis has been reached
-	public boolean moveDisplacementX(double TargetDisplacement)
+
+	/*public boolean moveDisplacementX(double TargetDisplacement)
 	{
 		boolean gyroDisplacementReached = false;
 		// If the displacement of the robot has reached the desired distance,
@@ -134,7 +135,7 @@ public class NavX extends Subsystem
 		// ahrs.resetDisplacement(); // Resets the distance travelled to 0
 		return gyroDisplacementReached;
 	}
-
+	
 	// Used to check if an distance in the X axis has been reached
 	public boolean moveDisplacementY(double TargetDisplacement)
 	{
@@ -149,7 +150,7 @@ public class NavX extends Subsystem
 		// ahrs.resetDisplacement(); // Resets the distance travelled to 0
 		return gyroDisplacementReached;
 	}
-
+	
 	public boolean moveDisplacementZ(double TargetDisplacement)
 	{
 		boolean gyroDisplacementReached = false;
@@ -163,4 +164,5 @@ public class NavX extends Subsystem
 		// ahrs.resetDisplacement(); // Resets the distance travelled to 0
 		return gyroDisplacementReached;
 	}
+	*/
 }

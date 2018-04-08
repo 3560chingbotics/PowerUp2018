@@ -10,19 +10,21 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveClawWheels extends Command
 {
 
-	double speed;
+	double speed, timeOut;
 
-	public MoveClawWheels(double speed)
+	public MoveClawWheels(double speed, double timeOut)
 	{
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.rClaw);
 		this.speed = speed;
+		this.timeOut = timeOut;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
+		this.setTimeout(timeOut);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -34,7 +36,7 @@ public class MoveClawWheels extends Command
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return false;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true

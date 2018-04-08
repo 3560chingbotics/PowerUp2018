@@ -1,11 +1,9 @@
 package org.usfirst.frc.team3560.robot;
 
-import org.usfirst.frc.team3560.robot.commands.auton.AutonReachLine;
-import org.usfirst.frc.team3560.robot.commands.auton.AutonTesting;
+import org.usfirst.frc.team3560.robot.commands.auton.DelayedTimedAuton;
 import org.usfirst.frc.team3560.robot.commands.auton.NoAuton;
-import org.usfirst.frc.team3560.robot.commands.auton.OnLeftGoForScale;
-import org.usfirst.frc.team3560.robot.commands.auton.OnRightGoForScale;
 import org.usfirst.frc.team3560.robot.commands.auton.TimedAuton;
+import org.usfirst.frc.team3560.robot.commands.auton.TimedSwitch;
 import org.usfirst.frc.team3560.robot.subsystems.Claw;
 import org.usfirst.frc.team3560.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team3560.robot.subsystems.Lift;
@@ -41,16 +39,20 @@ public class Robot extends TimedRobot
 	{
 		rDriveStick = new DriveStick();
 		rToolStick = new ToolStick();
+		Robot.rDrivetrain.driveSpeed = 0;
 		FMSReading = DriverStation.getInstance().getGameSpecificMessage();
 		SmartDashboard.putString("Game Data from FMS", FMSReading);
 		CameraServer.getInstance().startAutomaticCapture(0); // Camera Enabling
 		rAutoChooser = new SendableChooser<Command>();
-		rAutoChooser.addDefault("NoAuton", new NoAuton());
-		rAutoChooser.addObject("AutonReachLine", new AutonReachLine());
 		rAutoChooser.addObject("TimedAuton", new TimedAuton());
+		rAutoChooser.addDefault("DelayedTimedAuton", new DelayedTimedAuton());
+		rAutoChooser.addObject("NoAuton", new NoAuton());
+		rAutoChooser.addObject("TimedSwitch", new TimedSwitch());
+		/*rAutoChooser.addObject("AutonReachLine", new AutonReachLine());
 		rAutoChooser.addObject("AutonTesting", new AutonTesting());
 		rAutoChooser.addObject("OnLeftGoForScale", new OnLeftGoForScale());
 		rAutoChooser.addObject("OnRightGoForScale", new OnRightGoForScale());
+		rAutoChooser.addObject("OnLeftGoForSwitch", new OnLeftGoForSwitch());*/
 		SmartDashboard.putData("Auto mode", rAutoChooser);
 	}
 
@@ -70,7 +72,7 @@ public class Robot extends TimedRobot
 	public void autonomousInit()
 	{
 		rAutonomousCommand = (Command) rAutoChooser.getSelected();
-
+		Robot.rDrivetrain.driveSpeed = 0;
 		// schedule the autonomous command (example)
 		if (rAutonomousCommand != null) {
 			rAutonomousCommand.start();
@@ -78,20 +80,23 @@ public class Robot extends TimedRobot
 		// Robot.rNavX.turnController.enable();
 		Robot.rNavX.resetYaw();
 		Robot.rNavX.resetDisplacement();
-		Robot.rNavX.displayNavXData();
+		// Robot.rNavX.displayNavXData();
+		rClaw.compressor.setClosedLoopControl(true);
 	}
 
 	@Override
 	public void autonomousPeriodic()
 	{
 		Scheduler.getInstance().run();
-		Robot.rLift.updateSwitchCount();
+		// Robot.rLift.updateSwitchCount();
 		SmartDashboard.updateValues();
 	}
 
 	@Override
 	public void teleopInit()
 	{
+		Robot.rDrivetrain.driveSpeed = 0;
+		Robot.rDrivetrain.fullstop();
 		if (rAutonomousCommand != null) {
 			rAutonomousCommand.cancel();
 		}
@@ -105,7 +110,7 @@ public class Robot extends TimedRobot
 	{
 		Scheduler.getInstance().run();
 		// Robot.rLift.updateSwitchCount();
-		SmartDashboard.updateValues();
+		// SmartDashboard.updateValues();
 	}
 
 	@Override
