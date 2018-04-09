@@ -20,6 +20,8 @@ public class Drivetrain extends Subsystem
 {
 
 	private WPI_TalonSRX frontLeft, frontRight, backLeft, backRight; // Declare the 4 motors
+	// private SpeedControllerGroup d_Left, d_Right;
+	// private DifferentialDrive d_Drive;
 	private DoubleSolenoid solenoid1; // declare the one solenoid for the gearboxes.
 	private Timer time;
 	public double driveSpeed;
@@ -31,6 +33,12 @@ public class Drivetrain extends Subsystem
 		frontRight = new WPI_TalonSRX(ElectricalConstants.MOTORT_FRONT_RIGHT);
 		backLeft = new WPI_TalonSRX(ElectricalConstants.MOTORT_BACK_LEFT);
 		backRight = new WPI_TalonSRX(ElectricalConstants.MOTORT_BACK_RIGHT);
+
+		/*
+		d_Left = new SpeedControllerGroup(frontLeft, backLeft);
+		d_Left.setInverted(true);
+		d_Right = new SpeedControllerGroup(frontRight, backRight);
+		d_Drive = new DifferentialDrive(d_Left, d_Right);*/
 
 		// Add the 4 motors to the drive station
 		LiveWindow.addActuator("Drivetrain", "Front Left CIM", (WPI_TalonSRX) frontLeft);
@@ -73,6 +81,9 @@ public class Drivetrain extends Subsystem
 	{
 		driveleft(speed);
 		driveright(speed);
+
+		// d_Drive.arcadeDrive(Robot.rDriveStick.getJoyX() * driveSpeed,
+		// Robot.rDriveStick.getJoyZ() * driveSpeed);
 	}
 
 	// Stops the Robot

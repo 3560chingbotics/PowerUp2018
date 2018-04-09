@@ -33,10 +33,10 @@ public class TimedSwitch extends CommandGroup
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
+		addParallel(new MoveClawSolenoid(Value.kReverse, .1));
 		addSequential(new WaitCommand(5));
 		addSequential(new MovingLift(.7, .05));
 		addSequential(new MovingLift(0, .05));
-		addParallel(new MoveClawSolenoid(Value.kForward, .1));
 		addSequential(new MovingLift(-.65, .05));
 		addSequential(new MovingLift(0, .05));
 		addParallel(new MoveClawSolenoid(Value.kForward, .1));
